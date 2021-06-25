@@ -1,7 +1,7 @@
 # StubbedShaderConverter (UNRELEASED)
 This is a Thunderkit Built project that enables access to RoR2's shaders through a stubbed version, and tools for converting any stubbed shader in an asset bundle or object into Hopoo equivalents.
 
-If you want to print debug information, add `, true` to any method you call.
+If you want to print debug information, each method has a `debug` parameter that you can enable.
 
 ## Usage
 (this is a short temp tutorial for use. Upon release, I'll write a more in-depth tutorial for it).
@@ -11,8 +11,8 @@ If you want to print debug information, add `, true` to any method you call.
 3. Edit the properties of your material to desired values.
 4. Within the code of your mod:
     - Make sure your mod has `[BepInDependency("com.valex.ShaderConverter", BepInDependency.DependencyFlags.HardDependency)]` in your mod's BaseUnityPlugin script.
-    - Make sure you have `using StubbedConverter;` at the top of your script.
-    - After getting a reference to your asset bundle, call `ShaderConvert.ConvertAssetBundleShaders`.
+    - Make sure you are `using StubbedConverter;`.
+    - us `ShaderConvert.ConvertAssetBundleShaders` and plug in your AssetBundle.
     - If you want to use CloudFix (for if you use Cloud Remap Materials and are having issues with them), enable the cloudFix bool and call the method in your mods Start() or later. DO NOT use CloudFix in Awake(), it will fail!
 5. Done!
 
