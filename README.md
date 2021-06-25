@@ -1,6 +1,8 @@
 # StubbedShaderConverter (UNRELEASED)
 This is a Thunderkit Built project that enables access to RoR2's shaders through a stubbed version, and tools for converting any stubbed shader in an asset bundle or object into Hopoo equivalents.
 
+If you want to print debug information, add `, true` to any method you call.
+
 ### Usage
 (this is a short temp tutorial for use. Upon release, I'll write a more in-depth tutorial for it).
 
