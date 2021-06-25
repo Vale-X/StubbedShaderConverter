@@ -18,7 +18,7 @@ If you want to print debug information, each method has a `debug` parameter that
 
 <sub>CloudFix is specifically for CloudRemap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions. If you don't use cloud remap materials in your mod you can call `ShaderConvert.ConvertAssetBundleShaders` in Awake just fine. Thanks to Kevin for providing the CloudFix solution!</sub>
 
-__In the case that GameObjects are still using their stubbed shader versions:__
+### In the case that GameObjects are still using their stubbed shader versions:
 
 You can make use of `ShaderConvert.ConvertGameObjectShaders` to convert individual game objects, or you can use `UpdateGameObjectMaterials` to refresh materials.
 
