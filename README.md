@@ -6,7 +6,7 @@ If you want to print debug information, add `, true` to any method you call.
 ## Usage
 (this is a short temp tutorial for use. Upon release, I'll write a more in-depth tutorial for it).
 
-1. Install StubbedShaderConverter as a mod from Thunderstore. Reference this mod's dll within your project.
+1. Install StubbedShaderConverter (unreleased) as a mod from Thunderstore. Reference this mod's dll within your project.
 2. Import the StubbedShaders folder into your unity project. This will allow you to set your material shaders to stubbed hopoo versions.
 3. Edit the properties of your material to desired values.
 4. Within the code of your mod, in your BaseUnityPlugin's 'Awake()' code:
@@ -15,9 +15,7 @@ If you want to print debug information, add `, true` to any method you call.
     - If you want add debug information, use `ShaderConvert.AddBundleToConvertQueue(<yourAssetBundleHere>, true);` instead.
 5. Done!
 
-<sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for cloudremap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions of Cloud Remap materials (Basically, cloud remap shaders need some values generated at runtime that aren't accessible to stubbed versions, so CloudFix makes use of a vanilla game material as a 'template' and applies any relevant settings for the material. Thanks Kevin for providing this solution!).</sub>
-
-<sub>If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` within the Awake of your project instead.</sub>
+<sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for cloudremap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions of Cloud Remap materials. If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` instead.</sub>
 
 __In the case that GameObjects are still using their stubbed shader versions:__
 
@@ -28,6 +26,10 @@ You can make use of `ShaderConvert.ConvertGameObjectShaders` to convert individu
 
 ## KomradeSpectre's MaterialControllerComponent
 
-This is a tool that can be used with [Twiner's RuntimeInspector](https://thunderstore.io/package/Twiner/RuntimeInspector/) to control/customise materials in-game. This is extremely useful in getting the exact settings you want/need for materials.
+This is a tool that can be used with [Twiner's RuntimeInspector](https://thunderstore.io/package/Twiner/RuntimeInspector/) to control/customise materials in-game. This is extremely useful in getting the exact settings you want/need for materials. __THIS TOOL ONLY WORKS WITH STANDARD, CLOUD REMAP AND INTERSECTION SHADERS__.
 
-1. Call `MaterialController.AddMaterialController
+1. Call `MaterialController.AddMaterialController` and plug in the specific GameObject you want to customise the materials of.
+2. In-game, open RuntimeInspector with `ctrl + [` and `ctrl + ]`.
+3. Select your GameObject in the heirarchy view on the right window.
+4. Select the relevant `Controller Component` to edit the material's shaders.
+5. Apply resulting shader properties to the material within your unity project!
