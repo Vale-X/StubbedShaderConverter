@@ -15,7 +15,7 @@ If you want to print debug information, add `, true` to any method you call.
     - If you want add debug information, use `ShaderConvert.AddBundleToConvertQueue(<yourAssetBundleHere>, true);` instead.
 5. Done!
 
-<sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for cloudremap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions of Cloud Remap materials. If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` instead.</sub>
+<sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for CloudRemap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions. If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` instead.</sub>
 
 __In the case that GameObjects are still using their stubbed shader versions:__
 
