@@ -87,16 +87,19 @@ namespace StubbedConverter.Utils
                                 var standardController = gameObject.AddComponent<HGStandardController>();
                                 standardController.Material = Material;
                                 standardController.MeshRenderer = MeshRenderer;
+                                standardController.name = Material.name + "(HGStandard) Controller";
                                 break;
                             case "Hopoo Games/FX/Cloud Remap":
                                 var cloudController = gameObject.AddComponent<HGCloudRemapController>();
                                 cloudController.Material = Material;
                                 cloudController.MeshRenderer = MeshRenderer;
+                                cloudController.name = Material.name + "(HGCloudRemap) Controller";
                                 break;
                             case "Hopoo Games/FX/Cloud Intersection Remap":
                                 var intersectionController = gameObject.AddComponent<HGIntersectionController>();
                                 intersectionController.Material = Material;
                                 intersectionController.MeshRenderer = MeshRenderer;
+                                intersectionController.name = Material.name + "(HGIntersection) Controller";
                                 break;
                         }
                     }

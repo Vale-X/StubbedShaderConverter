@@ -14,7 +14,8 @@ namespace StubbedConverter
         // The reason it does this on Start is so it can make use of a vanilla game material for the CloudFix.
         // If you don't care about CloudRemap materials, or for some other reason, you can use ConvertAllBundleShadersImmediate.
 
-        /// <summary>
+        #region old
+        /*/// <summary>
         /// Adds inAssetBundle to a queue that converts all material shaders in an asset bundle to Hopoo Equivelents. Applies CloudFix. 
         /// Conversion process happens within ShaderConverterPlugin.Start(). Asset bundle must be added to queue before then (within your plugin Awake).
         /// </summary>
@@ -42,6 +43,35 @@ namespace StubbedConverter
         public static void ConvertAllBundleShadersImmediate(AssetBundle inAssetBundle)
         {
             ConvertAllBundleShadersImmediate(inAssetBundle, false);
+        }*/
+        #endregion
+
+        /// <summary>
+        /// Converts all stubbed shaders in materials in an AssetBundle into Hopoo Equivelents.
+        /// Only enable cloudFix if used within your BaseUnityPlugin's Start() or later.
+        /// </summary>
+        /// <param name="cloudFix"> Do NOT enable if used within Awake of BaseUnityPlugin. Will fail if you do.</param>
+        public static void ConvertAssetBundleShaders(AssetBundle inAssetBundle, bool cloudFix, bool debug)
+        {
+            ProcessAssetBundleShaders(inAssetBundle, cloudFix, debug);
+        }
+
+        /// <summary>
+        /// Converts all stubbed shaders in materials in an AssetBundle into Hopoo Equivelents.
+        /// Only enable cloudFix if used within your BaseUnityPlugin's Start() or later.
+        /// </summary>
+        /// <param name="cloudFix"> Do NOT enable if used within Awake of BaseUnityPlugin. Will fail if you do.</param>
+        public static void ConvertAssetBundleShaders(AssetBundle inAssetBundle, bool cloudFix)
+        {
+            ConvertAssetBundleShaders(inAssetBundle, cloudFix, false);
+        }
+        /// <summary>
+        /// Converts all stubbed shaders in materials in an AssetBundle into Hopoo Equivelents.
+        /// Only enable cloudFix if used within your BaseUnityPlugin's Start() or later.
+        /// </summary>
+        public static void ConvertAssetBundleShaders(AssetBundle inAssetBundle)
+        {
+            ConvertAssetBundleShaders(inAssetBundle, false, false);
         }
 
         /// <summary>
@@ -54,6 +84,10 @@ namespace StubbedConverter
             RendererShaderSwap(objectRenderers, debug, true);
             if (debug) Debug.Log("ShaderConverter: Finished converting " + inObject.name + "'s Shaders!");
         }
+
+        /// <summary>
+        /// Converts all shaders in materials of a GameObject into Hopoo Equivelents.
+        /// </summary>
         public static void ConvertGameObjectShaders(GameObject inObject)
         {
             ConvertGameObjectShaders(inObject, false);
@@ -75,6 +109,10 @@ namespace StubbedConverter
             RendererShaderSwap(allRenderers.ToArray(), debug, true);
             if (debug) Debug.Log("ShaderConverter: Finished converting " + inObjects.Length + " GameObject shaders!");
         }
+
+        /// <summary>
+        /// Converts all shaders in materials of multiple GameObjects into Hopoo Equivelents.
+        /// </summary>
         public static void ConvertGameObjectShaders(GameObject[] inObjects)
         {
             ConvertGameObjectShaders(inObjects, false);
@@ -89,6 +127,10 @@ namespace StubbedConverter
             Renderer[] objectRenderers = GetGameObjectRenderers(inObject, debug);
             RendererUpdateMaterials(objectRenderers, inAssetBundle, debug);
         }
+
+        /// <summary>
+        /// Refreshes materials of a specified gameobject with matching materials from an asset bundle.
+        /// </summary>
         public static void UpdateGameObjectMaterials(AssetBundle inAssetBundle, GameObject inObject)
         {
             UpdateGameObjectMaterials(inAssetBundle, inObject, false);
@@ -268,7 +310,7 @@ namespace StubbedConverter
                 if (renderer1 is MeshRenderer meshRenderer) { materials.AddRange(meshRenderer.materials); }
                 else if (renderer1 is SkinnedMeshRenderer skinnedMeshRenderer) { materials.AddRange(skinnedMeshRenderer.sharedMaterials); }
                 else if (renderer1 is ParticleSystemRenderer particleSystemRenderer) { materials.AddRange(particleSystemRenderer.sharedMaterials); }
-                else { if (debug) Debug.Log("ShaderConverter: ERROR: Renderer: " + renderer1 + "is of type: " + renderer1.GetType().Name + " and is not supported for conversion!"); continue; }
+                else { if (debug) Debug.Log("ShaderConverter: ERROR: Renderer: " + renderer1 + "is of type: " + renderer1.GetType().Name + " and is not currently supported for updating!"); continue; }
 
                 if (materials.Count != 0)
                 {
@@ -298,7 +340,8 @@ namespace StubbedConverter
             }
         }
 
-        //Used internally for every asset bundle added to the assetBundles list at start. This is where the magic happens!
+        #region old
+        /*//Used internally for every asset bundle added to the assetBundles list at start. This is where the magic happens!
         //now uses ProcessAssetBundleShadersCloudFix instead, with a toggle for CloudFix.
         internal static void ProcessAssetBundleShaders(AssetBundle inAssetBundle, bool debug)
         {
@@ -363,6 +406,52 @@ namespace StubbedConverter
                     materialAssets[i] = material;
                     if (debug) Debug.Log("ShaderConverter: " + material.name + " is a Cloud Remap shader. CloudFix applied!");
                 }
+                //Apply the temporary variable copy to the original
+                materialAssets[i] = material;
+                if (debug) Debug.Log("ShaderConverter: Finished converting " + inAssetBundle + "'s shaders with CloudFix");
+            }
+        }*/
+        #endregion
+
+        internal static void ProcessAssetBundleShaders(AssetBundle inAssetBundle, bool cloudFix, bool debug)
+        {
+            if (cloudFix == true && ShaderConverterPlugin.cloudMat == null) { Debug.Log("ShaderConverter: ERROR: cloudFix is enabled, but cloudMat not found! Only enable CloudFix bool in Start() or later, and make sure your mod has StubbedShaderConverter as a Hard Dependency!"); return; }
+            if (debug) Debug.Log("ShaderConverter: Attempting to convert shaders of bundle: " + inAssetBundle + ".");
+            var materialAssets = inAssetBundle.LoadAllAssets<Material>();
+
+            for (int i = 0; i < materialAssets.Length; i++)
+            {
+                // Get material and check if the material is correct.
+                if (!materialAssets[i]) { if (debug) Debug.Log("ShaderConverter: ERROR: Material is missing. Wack. Skipping!"); continue; }
+                var material = materialAssets[i];
+                if (!material.shader) { if (debug) Debug.Log("ShaderConverter: ERROR: Material " + material.name + "'s shader is missing. Skipping!"); continue; }
+                if (!material.shader.name.ToLower().StartsWith("stubbed")) { if (debug) Debug.Log("ShaderConverter: WARNING: Material " + material.name + "'s shader is NOT a stubbed Hopoo shader. Skipping."); continue; }
+                if (material.shader.name.StartsWith("Hopoo Games")) { if (debug) Debug.Log("ShaderConverter: WARNING: Material " + material.name + "'s shader is ALREADY a Hopoo shader. Skipping"); continue; }
+
+                // Replace the shader with the appropriate Hopoo shader used in-game.
+                var replacementShader = Resources.Load<Shader>(ShaderConverterPlugin.stubbedShaderLookup[material.shader.name]);
+                if (replacementShader)
+                {
+                    material.shader = replacementShader;
+                    if (debug) Debug.Log("ShaderConverter: Matching stubbed shader of " + material.name + " to: " + replacementShader + ". Replacing!");
+                }
+
+                if (cloudFix)
+                {
+                    // Check if the material is Cloud Remap. If it is, use CloudFix (thanks Kevin) instead of normal replacement.
+                    if (material.shader.name.Contains("Cloud Remap"))
+                    {
+                        // Cloud fixer code adapted from Kevin's code he sent me. Necessary in order for Cloud Remap materials to not appear black.
+                        // Cloudfix is used to get values generated at runtime and apply them to any material.
+                        //if (debug) Debug.Log("ShaderConverter: Message from Kevin: Fuck you Cloud Remap.");
+                        var cloudFixer = new CloudFix(material);
+                        material.CopyPropertiesFromMaterial(ShaderConverterPlugin.cloudMat);
+                        cloudFixer.SetMaterialValues(ref material);
+                        materialAssets[i] = material;
+                        if (debug) Debug.Log("ShaderConverter: " + material.name + " is a Cloud Remap shader. CloudFix applied!");
+                    }
+                }
+                else if (material.shader.name.Contains("Cloud Remap")) { if (debug) Debug.Log("ShaderConverter: " + material.name + " is a Cloud Remap shader, but CloudFix is not enabled! Issues may occur!"); }
                 //Apply the temporary variable copy to the original
                 materialAssets[i] = material;
                 if (debug) Debug.Log("ShaderConverter: Finished converting " + inAssetBundle + "'s shaders with CloudFix");

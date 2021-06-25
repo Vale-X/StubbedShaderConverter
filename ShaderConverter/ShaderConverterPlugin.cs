@@ -14,7 +14,7 @@ namespace StubbedConverter
 
         public static ShaderConverterPlugin instance;
 
-        internal static Material cloudMat;
+        internal static Material cloudMat = null;
 
         // This Dictionary ties every stubbed version of a shader to the one that vanilla RoR2 uses. Yes, even the shaders that don't necessarily need this dictionary or stubbed conversion.
         // I've already written them all down. If it works when you use the stubbed version, then it works.
@@ -69,12 +69,12 @@ namespace StubbedConverter
         {
             cloudMat = Resources.Load<GameObject>("Prefabs/Effects/OrbEffects/LightningStrikeOrbEffect").transform.Find("Ring").GetComponent<ParticleSystemRenderer>().material;
             Debug.Log("ShaderConverter: Gathered Cloud Remap material: " + cloudMat + "!");
-            Debug.Log("ShaderConverter: Processing all Asset Bundles in queue...");
+            /*Debug.Log("ShaderConverter: Processing all Asset Bundles in queue...");
             this.ProcessAssetBundles();
-            Debug.Log("ShaderConverter: Finished processing Asset Bundle materials!");
+            Debug.Log("ShaderConverter: Finished processing Asset Bundle materials!");*/
         }
 
-        private void ProcessAssetBundles()
+/*        private void ProcessAssetBundles()
         {
             int i = 0;
             foreach(AssetBundle bundle in ShaderConvert.assetBundles)
@@ -85,6 +85,6 @@ namespace StubbedConverter
                 i++;
                 
             }
-        }
+        }*/
     }
 }

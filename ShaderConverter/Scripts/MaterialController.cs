@@ -27,7 +27,7 @@ namespace StubbedConverter
         {
             AddMaterialController(inObject, false);
         }
-        private static void AddMaterialControllerRenderer(Renderer inRenderer, bool debug)
+        internal static void AddMaterialControllerRenderer(Renderer inRenderer, bool debug)
         {
             var finder = inRenderer.gameObject.AddComponent<StubbedConverter.Utils.MaterialControllerComponents.HGControllerFinder>();
             finder.MeshRenderer = inRenderer;
