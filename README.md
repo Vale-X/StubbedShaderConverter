@@ -8,8 +8,8 @@ This is a Thunderkit Built project that enables access to RoR2's shaders through
 2. Import the StubbedShaders folder into your unity project. This will allow you to set your material shaders to stubbed hopoo versions.
 3. Edit the properties of your material to desired values.
 4. Within the code of your mod, in your BaseUnityPlugin's 'Awake()' code:
-  1. After getting a reference to your asset bundle, call `StubbedConverter.AddBundleToConvertQueue(<yourAssetBundleHere>);`.
-  2. If you want add debug information, use `StubbedConverter.AddBundleToConvertQueue(<yourAssetBundleHere>, true);` instead.
+  *. After getting a reference to your asset bundle, call `StubbedConverter.AddBundleToConvertQueue(<yourAssetBundleHere>);`.
+  *. If you want add debug information, use `StubbedConverter.AddBundleToConvertQueue(<yourAssetBundleHere>, true);` instead.
 5. Done!
 
 __In the case that GameObjects are still using their stubbed shader versions:__
