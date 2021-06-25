@@ -9,10 +9,11 @@ If you want to print debug information, add `, true` to any method you call.
 1. Install StubbedShaderConverter (unreleased) as a mod from Thunderstore. Reference this mod's dll within your project.
 2. Import the StubbedShaders folder into your unity project. This will allow you to set your material shaders to stubbed hopoo versions.
 3. Edit the properties of your material to desired values.
-4. Within the code of your mod, in your BaseUnityPlugin's 'Awake()' code:
+4. Within the code of your mod:
+    - Make sure your mod has `[BepInDependency("com.valex.ShaderConverter", BepInDependency.DependencyFlags.HardDependency)]` in your mod's BaseUnityPlugin script.
     - Make sure you have `using StubbedConverter;` at the top of your script.
-    - After getting a reference to your asset bundle, call `ShaderConvert.AddBundleToConvertQueue(<yourAssetBundleHere>);`.
-    - If you want add debug information, use `ShaderConvert.AddBundleToConvertQueue(<yourAssetBundleHere>, true);` instead.
+    - After getting a reference to your asset bundle, call `ShaderConvert.ConvertAssetBundleShaders`.
+    - If you want to use CloudFix (for if you use Cloud Remap Materials and are having issues with them), enable the cloudFix bool and call the method in your mods Start() or later.
 5. Done!
 
 <sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for CloudRemap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions. If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` instead. Thanks to Kevin for providing the CloudFix solution!</sub>
