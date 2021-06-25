@@ -14,6 +14,7 @@ This is a Thunderkit Built project that enables access to RoR2's shaders through
 
 __In the case that GameObjects are still using their stubbed shader versions:__
 
-You can make use of `ConvertGameObjectShaders` to convert individual game objects, or you can use `UpdateGameObjectMaterials` to refresh materials.  
+You can make use of `ConvertGameObjectShaders` to convert individual game objects, or you can use `UpdateGameObjectMaterials` to refresh materials.
+
 `ConvertGameObjectShaders` runs the same conversion process used for AssetBundles but on a singular GameObject. It gathers all renderers in a GameObject and processes the materials within them.  
 `UpdateGameObjectMaterial` finds the materials within a GameObject and then looks for matching materials within your AssetBundle. It then applies the found materials to the GameObject.  
