@@ -26,7 +26,8 @@ You can make use of `ShaderConvert.ConvertGameObjectShaders` to convert individu
 
 ## KomradeSpectre's MaterialControllerComponent
 
-This is a tool that can be used with [Twiner's RuntimeInspector](https://thunderstore.io/package/Twiner/RuntimeInspector/) to control/customise materials in-game. This is extremely useful in getting the exact settings you want/need for materials. __THIS TOOL ONLY WORKS WITH STANDARD, CLOUD REMAP AND INTERSECTION SHADERS__.
+### THIS TOOL ONLY WORKS WITH STANDARD, CLOUD REMAP AND INTERSECTION SHADERS.
+This is a tool that can be used with [Twiner's RuntimeInspector](https://thunderstore.io/package/Twiner/RuntimeInspector/) to control/customise materials in-game. This is extremely useful in getting the exact settings you want/need for materials. 
 
 1. Call `MaterialController.AddMaterialController` and plug in the specific GameObject you want to customise the materials of.
 2. In-game, open RuntimeInspector with `ctrl + [` and `ctrl + ]`.
