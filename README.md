@@ -13,10 +13,10 @@ If you want to print debug information, add `, true` to any method you call.
     - Make sure your mod has `[BepInDependency("com.valex.ShaderConverter", BepInDependency.DependencyFlags.HardDependency)]` in your mod's BaseUnityPlugin script.
     - Make sure you have `using StubbedConverter;` at the top of your script.
     - After getting a reference to your asset bundle, call `ShaderConvert.ConvertAssetBundleShaders`.
-    - If you want to use CloudFix (for if you use Cloud Remap Materials and are having issues with them), enable the cloudFix bool and call the method in your mods Start() or later.
+    - If you want to use CloudFix (for if you use Cloud Remap Materials and are having issues with them), enable the cloudFix bool and call the method in your mods Start() or later. DO NOT use CloudFix in Awake(), it will fail!
 5. Done!
 
-<sub>Using `AddBundleToConvertQueue` within Awake() instead of `ConvertAllBundleShadersImmediate` is advised because this allows the use of CloudFix. CloudFix is specifically for CloudRemap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions. If you don't use cloud remap materials in your mod you can use `ConvertAllBundleShadersimmediate` instead. Thanks to Kevin for providing the CloudFix solution!</sub>
+<sub>CloudFix is specifically for CloudRemap Materials (which are used for VFX or transparent materials) and fixes some issues with using stubbed versions. If you don't use cloud remap materials in your mod you can call `ShaderConvert.ConvertAssetBundleShaders` in Awake just fine. Thanks to Kevin for providing the CloudFix solution!</sub>
 
 __In the case that GameObjects are still using their stubbed shader versions:__
 
