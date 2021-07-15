@@ -4,7 +4,6 @@ This is a Thunderkit Built project that enables access to RoR2's shaders through
 If you want to print debug information, each method has a `debug` parameter that you can enable.
 
 ## Usage
-(this is a short temp tutorial for use. Upon release, I'll write a more in-depth tutorial for it).
 
 1. Install [StubbedShaderConverter](https://thunderstore.io/package/ValeX/StubbedShaderConverter/) as a mod from Thunderstore. Reference this mod's dll within your project.
     - If using [ThunderKit](https://github.com/risk-of-thunder/R2Wiki/wiki/Creating-Mods-with-Thunderkit), add this mod as a package to your ThunderKit unity project.
