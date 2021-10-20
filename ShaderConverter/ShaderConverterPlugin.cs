@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace StubbedConverter
     {
         public const string MODUID = "com.valex.ShaderConverter";
         public const string MODNAME = "ShaderConverter";
-        public const string MODVERSION = "0.0.3";
+        public const string MODVERSION = "0.0.2";
 
         public static ShaderConverterPlugin instance;
 
@@ -18,7 +19,10 @@ namespace StubbedConverter
 
         // This Dictionary ties every stubbed version of a shader to the one that vanilla RoR2 uses. Yes, even the shaders that don't necessarily need this dictionary or stubbed conversion.
         // I've already written them all down. If it works when you use the stubbed version, then it works.
-        internal readonly static Dictionary<string, string> stubbedShaderLookup = new Dictionary<string, string>()
+        /// <summary>
+        /// Key = Stubbed Shader name. Value = Vanilla hopoo shader path.
+        /// </summary>
+        public readonly static Dictionary<string, string> stubbedShaderLookup = new Dictionary<string, string>()
         {
             //Shader internal name (Input shader)                               Path name (Output shader)
             {"stubbed_Hidden/FastBlur Proxy",                                   "shaders/mobileblur" },
@@ -67,24 +71,7 @@ namespace StubbedConverter
 
         private void Start()
         {
-            cloudMat = Resources.Load<GameObject>("Prefabs/Effects/OrbEffects/LightningStrikeOrbEffect").transform.Find("Ring").GetComponent<ParticleSystemRenderer>().material;
-            Debug.Log("ShaderConverter: Gathered Cloud Remap material: " + cloudMat + "!");
-            /*Debug.Log("ShaderConverter: Processing all Asset Bundles in queue...");
-            this.ProcessAssetBundles();
-            Debug.Log("ShaderConverter: Finished processing Asset Bundle materials!");*/
+            //cloudMat = ;
         }
-
-/*        private void ProcessAssetBundles()
-        {
-            int i = 0;
-            foreach(AssetBundle bundle in ShaderConvert.assetBundles)
-            {
-                Debug.Log("ShaderConverter: Processing Asset Bundle: " + bundle + ". Debug: " + ShaderConvert.debugList[i]);
-                //ShaderConvert.ProcessAssetBundleShaders(bundle, ShaderConvert.debugList[i]);
-                ShaderConvert.ProcessAssetBundleShadersCloudFix(bundle, ShaderConvert.debugList[i]);
-                i++;
-                
-            }
-        }*/
     }
 }

@@ -55,7 +55,7 @@ MonoBehaviour:
   Name: Stubbed Shader Converter
   Icon: {fileID: 2800000, guid: 6b83677f4e5c2904f8b4d68ba1c49d90, type: 3}
   Description: An externally referenced tool for using Hopoo shaders in mods.
-  Version: 0.0.2
+  Version: 1.0.0
   Dependencies:
   - {fileID: 11400000, guid: 6893422731aa6d67012f5f4d8209c304, type: 2}
 --- !u!114 &114431642618062350
